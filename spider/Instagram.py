@@ -5,7 +5,7 @@ import requests
 from spider.base_crawler import BaseCrawler
 
 
-class InstagramInCrawler(BaseCrawler):
+class InstagramCrawler(BaseCrawler):
 
     def crawl_next_batch(self):
         offset = None
