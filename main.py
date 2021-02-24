@@ -7,6 +7,7 @@ from spider.linkedin import LinkedInCrawler
 from spider.mercari import MercariCrawler
 from spider.twitter import TwitterCrawler
 from spider.uber import UberCrawler
+from spider.netflix import NetflixCrawler
 
 logging.basicConfig()
 logger = logging.getLogger(__name__)
@@ -27,3 +28,7 @@ if __name__ == "__main__":
     # mercariCrawler = MercariCrawler(mongo_client, config_parser)
     # mercariCrawler.crawl_blogs()
     # logger.info("Finished crawling %s", mercariCrawler.get_company_name())
+    #
+    # netflix_crawler = NetflixCrawler(mongo_client, config_parser)
+    # netflix_crawler.crawl_blogs()
+    # logger.info("Finished crawling %s", netflix_crawler.get_company_name())
