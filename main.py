@@ -2,7 +2,6 @@ import logging
 
 from config_parser import ConfigParser
 from mongo import MongoClient
-from spider.Datadog import DatadogCrawler
 from spider.Instagram import InstagramCrawler
 from spider.dropbox import DropboxCrawler
 from spider.indeed import IndeedCrawler
@@ -12,6 +11,7 @@ from spider.twitter import TwitterCrawler
 from spider.uber import UberCrawler
 from spider.netflix import NetflixCrawler
 from spider.airbnb import AirbnbCrawler
+from spider.yelp import YelpCrawler
 from spider.pinterest import PinterestCrawler
 
 logging.basicConfig()
@@ -22,7 +22,7 @@ if __name__ == "__main__":
     mongo_client = MongoClient('localhost', 27017)
     config_parser = ConfigParser()
 
-    instagram_crawler = DatadogCrawler(mongo_client, config_parser)
+    instagram_crawler = YelpCrawler(mongo_client, config_parser)
     instagram_crawler.crawl_blogs()
     logger.info("Finished crawling %s", instagram_crawler.get_company_name())
 

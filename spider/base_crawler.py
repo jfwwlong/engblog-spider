@@ -44,13 +44,16 @@ class BaseCrawler:
     def http_headers():
         return {
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_4) AppleWebKit/537.36 (KHTML, like Gecko) '
-                          'Chrome/52.0.2743.116 Safari/537.36 '
+                          'Chrome/52.0.2743.116 Safari/537.36 ',
+            "Accept-Encoding": "gzip, deflate",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8"
         }
 
     @staticmethod
     def rest_api_headers():
         return {
-            'Accept': 'application/json'
+            'Accept': 'application/json',
         }
 
     @staticmethod
