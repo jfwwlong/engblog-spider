@@ -9,7 +9,7 @@ class MongoClient:
         self._blogs = self._db.blogs
 
     def insert_blog(self, blog):
-        doc = self._blogs.find_one({'title': blog.get('title')})
+        doc = self._blogs.find_one({'url': blog.get('url')})
         if doc is not None:
             return False
 

@@ -11,6 +11,7 @@ from spider.mercari import MercariCrawler
 from spider.twitter import TwitterCrawler
 from spider.uber import UberCrawler
 from spider.netflix import NetflixCrawler
+from spider.airbnb import AirbnbCrawler
 
 logging.basicConfig()
 logger = logging.getLogger(__name__)
@@ -35,3 +36,8 @@ if __name__ == "__main__":
     # netflix_crawler = NetflixCrawler(mongo_client, config_parser)
     # netflix_crawler.crawl_blogs()
     # logger.info("Finished crawling %s", netflix_crawler.get_company_name())
+    #
+    # airbnb_crawler = AirbnbCrawler(mongo_client, config_parser)
+    # airbnb_crawler.crawl_blogs()
+    # logger.info("Finished crawling %s", airbnb_crawler.get_company_name())
+
