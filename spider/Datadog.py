@@ -1,3 +1,4 @@
+import dateutil.parser
 import requests
 from bs4 import BeautifulSoup
 
@@ -24,7 +25,8 @@ class DatadogCrawler(BaseCrawler):
         for article in articles:
             blog = {'title': article.find(class_='regular-post-text').h4.string, 'url': article.a.attrs['href']}
 
-            blog['pub_date'] = self.extract_pub_date_from_blog(blog['url'])
+            pub_date = self.extract_pub_date_from_blog(blog['url'])
+            blog['pub_date'] = dateutil.parser.parse(pub_date).date().isoformat()
             blog['cover'] = article.find(name='picture').img.attrs['base-img']
 
             result.append(blog)
