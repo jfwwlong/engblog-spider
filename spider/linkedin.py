@@ -40,7 +40,7 @@ class LinkedInCrawler(BaseCrawler):
             blog['pub_date'] = dateutil.parser.parse(pub_datetime).date().isoformat()
 
             entry_image = article.find(class_='post-thumb')
-            if entry_image:
+            if entry_image and entry_image.a.img and entry_image.a.img.attrs.get('data-background-src'):
                 blog['cover'] = 'https://engineering.linkedin.com/{}'.format(entry_image.a.img.attrs['data-background-src'])
             else:
                 blog['cover'] = self.get_company_logo()

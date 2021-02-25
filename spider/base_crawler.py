@@ -1,5 +1,5 @@
-import logging
 import json
+import logging
 
 logging.basicConfig()
 logger = logging.getLogger(__name__)
@@ -32,6 +32,8 @@ class BaseCrawler:
 
             count += 1
             logger.info('Crawled and persisted %s blogs into database for: %s', count, self.get_company_name())
+
+        self._mongo_client.insert_company(self.get_company_name())
 
     def crawl_next_batch(self):
         raise NotImplemented
