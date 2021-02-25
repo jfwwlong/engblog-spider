@@ -7,6 +7,7 @@ from spider.dropbox import DropboxCrawler
 from spider.indeed import IndeedCrawler
 from spider.linkedin import LinkedInCrawler
 from spider.mercari import MercariCrawler
+from spider.salesforce import SalesforceCrawler
 from spider.twitter import TwitterCrawler
 from spider.uber import UberCrawler
 from spider.netflix import NetflixCrawler
@@ -22,7 +23,7 @@ if __name__ == "__main__":
     mongo_client = MongoClient('localhost', 27017)
     config_parser = ConfigParser()
 
-    instagram_crawler = YelpCrawler(mongo_client, config_parser)
+    instagram_crawler = NetflixCrawler(mongo_client, config_parser)
     instagram_crawler.crawl_blogs()
     logger.info("Finished crawling %s", instagram_crawler.get_company_name())
 

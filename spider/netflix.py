@@ -27,36 +27,30 @@ class NetflixCrawler(BaseCrawler):
 
         response = requests.get("https://medium.com/_/api/collections/2615bd06b42e/stream", params=params)
         payload = json.loads(response.content[16:].decode("utf-8"))['payload']
-        items = payload['streamItems']
 
-        if not items:
+        if not payload or not payload['references'] or not payload['references']['Post'] or not payload['paging']:
             return result, {}
-
-        references = payload['references']['Post']
 
         paging = payload['paging']
 
-        for item in items:
-
-            blog_references = item['section']['items']
-            for reference in blog_references:
-                post_id = reference['post']['postId']
-                raw_blog_data = references[post_id]
-                blog = {
-                    'pub_date': datetime.datetime.fromtimestamp(raw_blog_data['createdAt'] / 1000).date().isoformat(),
-                    'title': raw_blog_data['title'],
-                    'url': 'https://netflixtechblog.com/' + raw_blog_data['uniqueSlug'],
-                }
-
-                if raw_blog_data['virtuals'] and raw_blog_data['virtuals']['previewImage'] and \
-                        raw_blog_data['virtuals']['previewImage']['imageId']:
-                    blog['cover'] = 'https://cdn-images-1.medium.com/max/800/{}'.format(
-                        raw_blog_data['virtuals']['previewImage']['imageId'])
-                else:
-                    blog['cover'] = self.get_company_logo()
-                result.append(blog)
+        blog_ids = payload['references']['Post'].keys()
+        for blog_id in blog_ids:
+            blog = payload['references']['Post'][blog_id]
+            result.append(self.convert_blog(blog))
 
         return result, paging
+
+    def convert_blog(self, blog):
+        cover = self.get_company_logo()
+        if blog['virtuals'] and blog['virtuals']['previewImage'] and blog['virtuals']['previewImage']['imageId']:
+            cover = blog['virtuals']['previewImage']['imageId']
+
+        return {
+            'pub_date': datetime.datetime.fromtimestamp(blog['firstPublishedAt'] / 1000).date().isoformat(),
+            'title': blog['title'],
+            'url': 'https://netflixtechblog.com/' + blog['uniqueSlug'],
+            'cover': 'https://cdn-images-1.medium.com/fit/t/1024/576/{}'.format(cover)
+        }
 
     @classmethod
     def get_company_name(cls):
