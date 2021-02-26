@@ -5,7 +5,7 @@ from config_parser import ConfigParser
 from mongo import MongoClient
 from spider.base_crawler import BaseCrawler
 
-for module in os.listdir('spider'):
+for module in os.listdir(os.path.abspath(os.path.join(os.path.dirname(__file__), 'spider'))):
     if module == '__init__.py' or module[-3:] != '.py':
         continue
     __import__('spider.' + module[:-3], locals(), globals())
